@@ -4,10 +4,21 @@ require_once "./support/database.php";
 
 abstract class Model
 {
-
 	public ?string $uuid;
 
 	public static abstract function tableName(): string;
+
+	public static function find(string $uuid): Model {
+		$table = static::tableName();
+
+		$statement = database()->prepare("SELECT * FROM $table WHERE `uuid` = ?;");
+
+		$statement->execute([$uuid]);
+
+		$result = $statement->fetch();
+
+		return new static(...$result);
+	}
 
 	/**
 	 * @throws Exception
@@ -41,6 +52,38 @@ abstract class Model
 		if ($statement->rowCount()) {
 			return $this;
 		} else {
+			throw new Exception("Er is iets fout gegaan tijdens het verwerken van je registratie. Probeer het later nog eens.");
+		}
+	}
+
+	public function update() {
+		$table      = static::tableName();
+		$class      = new ReflectionClass(static::class);
+		$properties = array_values( // Filtering filters out array keys, in order to keep integrity we reset indexes using array_values.
+			array_filter(
+				$class->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED),
+				fn ($property) => $property->getName() !== "uuid" // We don't want to update the primary key.
+			)
+		);
+
+		$setPlaceholders = implode(", ", array_map(
+			fn (ReflectionProperty $property) => "{$property->getName()} = ?", $properties
+		));
+
+		$statement = database()->prepare("UPDATE `$table` SET $setPlaceholders WHERE `uuid` = ?;");
+
+		try {
+			$statement->execute(array_merge(
+				array_map(fn(ReflectionProperty $property) => $property->getValue($this), $properties),
+				[$this->uuid],
+			));
+
+			if ($statement->rowCount()) {
+				return $this;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
 			throw new Exception("Er is iets fout gegaan tijdens het verwerken van je registratie. Probeer het later nog eens.");
 		}
 	}

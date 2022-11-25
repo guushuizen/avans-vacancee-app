@@ -34,3 +34,31 @@ function registerUser(): ?string {
 	header("Location: /verification.php");
 	exit();
 }
+
+
+/**
+ * Verifies the posted verification code against
+ * the one present on the model, previously
+ * generated during registration.
+ *
+ * If valid, clears the field and redirects to
+ * the dashboard.
+ *
+ * If invalid, returns and shows an error message.
+ *
+ * @param Gebruiker $gebruiker
+ * @return bool|void
+ */
+function verifyUser(Gebruiker $gebruiker) {
+	$postedCode = $_POST['code'];
+
+	if ($gebruiker->emailCode !== $postedCode) {
+		return false;
+	}
+
+	$gebruiker->emailCode = null;
+	$gebruiker->update();
+
+	header("Location: /index.php");
+	exit();
+}

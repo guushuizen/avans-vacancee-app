@@ -6,7 +6,7 @@ require_once "template/header.php";
 
 require_once "models/Gebruiker.php";
 
-require_once "controllers/register.php";
+require_once "controllers/registration.php";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST)) {
   $error = registerUser();

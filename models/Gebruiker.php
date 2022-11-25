@@ -24,6 +24,10 @@ class Gebruiker extends Model
 		return "gebruikers";
 	}
 
+	public function volleNaam(): string {
+		return "$this->voornaam $this->achternaam";
+	}
+
 	public function generateCode(string $fieldName) {
 		$characters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 		$code = "";

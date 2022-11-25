@@ -45,7 +45,7 @@
                   </g>
                 </svg>
               </div>
-              <?php if (getenv("LOGGED_IN")) { // Dummy for now, should replace someone being logged in. ?>
+              <?php if (isset($gebruiker)) { // Dummy for now, should replace someone being logged in. ?>
               <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                 <a href="#" class="border-primary text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" aria-current="page">
                   Vacatures
@@ -57,12 +57,12 @@
               </div>
               <?php } ?>
             </div>
-            <?php if (getenv("LOGGED_IN")) { // Dummy for now, should replace someone being logged in. ?>
+            <?php if (isset($gebruiker)) { // Dummy for now, should replace someone being logged in. ?>
             <div class="hidden sm:ml-6 sm:flex sm:items-center">
               <div class="relative ml-3" x-data="{open: false}">
                 <div>
                   <button type="button" x-transition @click="open = !open" class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                    Guus Huizen
+                    <?php echo $gebruiker->volleNaam(); ?>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div x-show="open" @click.outside="open = false" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"><Uitloggen></Uitloggen></a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Uitloggen</a>
                 </div>
               </div>
             </div>
