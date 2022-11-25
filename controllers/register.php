@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Registers the user in the database and forwards to the
- * verification page.
+ * Registers the user in the database,
+ * sends a verification code
+ * and forwards to the verification page.
  *
  * Returns any error message generated.
  *
@@ -30,11 +31,6 @@ function registerUser(): ?string {
 
 	$_SESSION['user_id'] = $gebruiker->uuid; # Logs the user in, very insecurely.
 
-	# send verification codes
-
-	# set session variable to true representing successful registration
-
 	header("Location: /verification.php");
-
-	return null;
+	exit();
 }

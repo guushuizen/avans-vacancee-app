@@ -11,7 +11,9 @@ function read_env_file() {
 	$env_file = file_get_contents($file_path);
 
 	foreach (explode("\n", $env_file) as $line) {
-		putenv($line);
+		if (str_contains($line, "=")) {
+			putenv($line);
+		}
 	}
 }
 

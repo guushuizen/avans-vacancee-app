@@ -9,17 +9,6 @@ abstract class Model
 
 	public static abstract function tableName(): string;
 
-//	public static function find(string $uuid): self
-//	{
-//		$table = static::tableName();
-//
-//		$query = database()->prepare("SELECT * FROM :table where uuid = :uuid");
-//
-//		$query->execute(compact("uuid", "table"));
-//
-//		return new static(...$query->fetch());
-//	}
-
 	/**
 	 * @throws Exception
 	 */
@@ -32,38 +21,24 @@ abstract class Model
 		}
 
 		$class      = new ReflectionClass(static::class);
-		$properties = $class->getProperties(ReflectionProperty::IS_PUBLIC);
-
-		$fields = substr(
-			array_reduce($properties,
-				function (string $value, ReflectionProperty $property) {
-					if ($property->getValue($this))
-						$value .= "{$property->getName()},";
-
-					return $value;
-				},
-				""
-			),
-			0,
-			-1
+		$properties = array_values( // Filtering filters out array keys, in order to keep integrity we reset indexes using array_values.
+			array_filter(
+				$class->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED),
+				fn ($property) => boolval($property->getValue($this))
+			)
 		);
 
-		$values = substr(
-			array_reduce($properties,
-				function (string $value, ReflectionProperty $property) {
-					if ($property->getValue($this))
-						$value .= "'{$property->getValue($this)}', ";
+		$tableNames = implode(", ", array_map(
+			fn (ReflectionProperty $property) => "{$property->getName()}", $properties
+		));
 
-					return $value;
-				},
-				""),
-			0,
-			-2
-		);
+		$value_placeholders = implode(", ", array_fill(0, count($properties), "?"));
 
-		$result = database()->query("INSERT INTO $table ($fields) VALUES($values)");
+		$statement = database()->prepare("INSERT INTO `$table`($tableNames) VALUES($value_placeholders);");
 
-		if ($result->rowCount()) {
+		$statement->execute(array_map(fn (ReflectionProperty $property) => $property->getValue($this), $properties));
+
+		if ($statement->rowCount()) {
 			return $this;
 		} else {
 			throw new Exception("Er is iets fout gegaan tijdens het verwerken van je registratie. Probeer het later nog eens.");
