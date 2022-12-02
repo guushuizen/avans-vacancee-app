@@ -7,6 +7,7 @@ CREATE TABLE `gebruikers` (
       `bedrijfsnaam` VARCHAR(256) NOT NULL,
       `email` VARCHAR(256) NOT NULL,
       `wachtwoord` VARCHAR(1024),
+      `geblokeerd` TINYINT,
       `telefoonnummer` VARCHAR(20),
       `laatsteBetaalDatum` DATE NULL,
       `smsCode` VARCHAR(6),

@@ -23,7 +23,7 @@ abstract class Model
 	/**
 	 * @throws Exception
 	 */
-	public function create(): self
+	public function create(): Model
 	{
 		$table = static::tableName();
 

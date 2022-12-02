@@ -13,6 +13,7 @@ class Gebruiker extends Model
 		public string $email,
 		public string $telefoonnummer,
 		protected ?string $wachtwoord,
+		public bool $geblokeerd = false,
 		public ?string $uuid = null,
 		public ?string $laatsteBetaalDatum = null,
 		public ?string $smsCode = null,
@@ -28,7 +29,7 @@ class Gebruiker extends Model
 		return "$this->voornaam $this->achternaam";
 	}
 
-	public function generateCode(string $fieldName) {
+	public function generateCode(): string {
 		$characters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 		$code = "";
 		$desired_length = 6;
@@ -37,10 +38,10 @@ class Gebruiker extends Model
 			$code .= $characters[random_int(0, count($characters) - 1)];
 		}
 
-		$this->$fieldName = $code;
+		return $code;
 	}
 
-	public function sendVerificationEmail() {
+	public function sendVerificationEmail(): bool {
 		return send_email(
 			"$this->voornaam $this->achternaam",
 			$this->email,
@@ -56,13 +57,13 @@ EOT
 		);
 	}
 
-	public function create(): Model
+	public function create(): self
 	{
-		$this->generateCode("emailCode");
+		$this->emailCode = $this->generateCode();
 
 		parent::create();
 
-		$success = $this->sendVerificationEmail();
+		$this->sendVerificationEmail();
 
 		return $this;
 	}
