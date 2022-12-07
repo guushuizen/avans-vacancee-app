@@ -29,7 +29,7 @@ class Gebruiker extends Model
 		return "$this->voornaam $this->achternaam";
 	}
 
-	public function generateCode(): string {
+	public function genereerCode(): string {
 		$characters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 		$code = "";
 		$desired_length = 6;
@@ -41,7 +41,7 @@ class Gebruiker extends Model
 		return $code;
 	}
 
-	public function sendVerificationEmail(): bool {
+	public function verstuurVerificatieEmail(): bool {
 		return send_email(
 			"$this->voornaam $this->achternaam",
 			$this->email,
@@ -59,11 +59,11 @@ EOT
 
 	public function create(): self
 	{
-		$this->emailCode = $this->generateCode();
+		$this->emailCode = $this->genereerCode();
 
 		parent::create();
 
-		$this->sendVerificationEmail();
+		$this->verstuurVerificatieEmail();
 
 		return $this;
 	}

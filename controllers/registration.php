@@ -47,17 +47,22 @@ function registerUser(): ?string {
  * If invalid, returns and shows an error message.
  *
  * @param Gebruiker $gebruiker
- * @return bool|void
+ * @return string|void
  */
 function verifyUser(Gebruiker $gebruiker) {
 	$postedCode = $_POST['code'];
 
 	if ($gebruiker->emailCode !== $postedCode) {
-		return false;
+		return "De opgegeven code is niet juist. Probeer het nogmaals.";
 	}
 
 	$gebruiker->emailCode = null;
-	$gebruiker->update();
+
+	try {
+		$gebruiker->update();
+	} catch (Exception $e) {
+		return $e->getMessage();
+	}
 
 	header("Location: /index.php");
 	exit();
