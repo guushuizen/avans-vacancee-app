@@ -67,4 +67,9 @@ EOT
 
 		return $this;
 	}
+
+	public function authenticate(string $wachtwoord): bool
+	{
+		return $this->wachtwoord === $wachtwoord;
+	}
 }

@@ -5,14 +5,14 @@ require_once "models/Gebruiker.php";
 session_start();
 
 if (!array_key_exists("user_id", $_SESSION)) {
-	header("Location: /register.php");
+	header("Location: /login.php");
   exit();
 }
 
 try {
 	$gebruiker = Gebruiker::find($_SESSION['user_id']);
 } catch (Error $e) {
-  header("Location: /register.php");
+  header("Location: /index.php");
   exit();
 }
 

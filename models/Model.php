@@ -8,6 +8,22 @@ abstract class Model
 
 	public static abstract function tableName(): string;
 
+	public static function where(string $key, mixed $value): Model|null {
+		$table = static::tableName();
+
+		$statement = database()->prepare("SELECT * FROM $table WHERE `$key` = ? LIMIT 1;");
+
+		$statement->execute([$value]);
+
+		$result = $statement->fetch();
+
+		if ($result) {
+			return new static(...$result);
+		} else {
+			return null;
+		}
+	}
+
 	public static function find(string $uuid): Model {
 		$table = static::tableName();
 
