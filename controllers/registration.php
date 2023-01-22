@@ -1,5 +1,7 @@
 <?php
 
+require_once 'models/Gebruiker.php';
+
 /**
  * Registers the user in the database,
  * sends a verification code
