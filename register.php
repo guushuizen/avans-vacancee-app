@@ -6,11 +6,9 @@ require_once "template/header.php";
 
 require_once "models/Gebruiker.php";
 
-require_once "controllers/registration.php";
+require_once "controllers/RegistrationController.php.php";
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST)) {
-  $error = registerUser();
-}
+$error = (new RegistrationController())->run();
 
 ?>
   <div class="overflow-hidden rounded-lg bg-white shadow">

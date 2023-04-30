@@ -59,9 +59,31 @@ EOT
 
 	public function create(): self
 	{
+        $this->uuid = $this->uuid ?? $this->generateUuid();
 		$this->emailCode = $this->genereerCode();
 
-		parent::create();
+        $tableName = static::tableName();
+        $statement = database()->prepare(<<<END
+    INSERT INTO $tableName (`uuid`, `voornaam`, `achternaam`, `bedrijfsnaam`, `email`, `telefoonnummer`, `wachtwoord`, `geblokeerd`, `laatsteBetaalDatum`, `smsCode`, `emailCode`)
+    VALUES (
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? 
+    );
+    END
+    );
+
+        $statement->execute([
+            $this->uuid,
+            $this->voornaam,
+            $this->achternaam,
+            $this->bedrijfsnaam,
+            $this->email,
+            $this->telefoonnummer,
+            $this->wachtwoord,
+            $this->geblokeerd ? 1 : 0,
+            $this->laatsteBetaalDatum,
+            $this->smsCode,
+            $this->emailCode
+        ]);
 
 		$this->verstuurVerificatieEmail();
 
@@ -72,4 +94,29 @@ EOT
 	{
 		return $this->wachtwoord === $wachtwoord;
 	}
+
+    public function update()
+    {
+        $tableName = static::tableName();
+        $statement = database()->prepare(<<<END
+    UPDATE $tableName
+    SET `voornaam` = ?, `achternaam` = ?, `email` = ?, `telefoonnummer` = ?, `wachtwoord` = ?, `geblokeerd` = ?, `laatsteBetaalDatum` = ?, `smsCode` = ?, `emailCode` = ?
+    WHERE `uuid` = ?
+    LIMIT 1;
+    END
+        );
+
+        $statement->execute([
+            $this->voornaam,
+            $this->achternaam,
+            $this->email,
+            $this->telefoonnummer,
+            $this->wachtwoord,
+            $this->geblokeerd ? 1 : 0,
+            $this->laatsteBetaalDatum,
+            $this->smsCode,
+            $this->emailCode,
+            $this->uuid
+        ]);
+    }
 }

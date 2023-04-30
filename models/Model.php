@@ -17,11 +17,7 @@ abstract class Model
 
 		$result = $statement->fetch();
 
-		if ($result) {
-			return new static(...$result);
-		} else {
-			return null;
-		}
+        return $result ? new static(...$result) : null;
 	}
 
 	public static function find(string $uuid): Model {
@@ -39,72 +35,11 @@ abstract class Model
 	/**
 	 * @throws Exception
 	 */
-	public function create(): Model
-	{
-		$table = static::tableName();
+	public abstract function create(): Model;
 
-		if (!isset($this->uuid)) {
-			$this->uuid = $this->generateUuid();
-		}
+	public abstract function update();
 
-		$class      = new ReflectionClass(static::class);
-		$properties = array_values( // Filtering filters out array keys, in order to keep integrity we reset indexes using array_values.
-			array_filter(
-				$class->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED),
-				fn ($property) => boolval($property->getValue($this))
-			)
-		);
-
-		$tableNames = implode(", ", array_map(
-			fn (ReflectionProperty $property) => "{$property->getName()}", $properties
-		));
-
-		$value_placeholders = implode(", ", array_fill(0, count($properties), "?"));
-
-		$statement = database()->prepare("INSERT INTO `$table`($tableNames) VALUES($value_placeholders);");
-
-		$statement->execute(array_map(fn (ReflectionProperty $property) => $property->getValue($this), $properties));
-
-		if ($statement->rowCount()) {
-			return $this;
-		} else {
-			throw new Exception("Er is iets fout gegaan tijdens het verwerken van je registratie. Probeer het later nog eens.");
-		}
-	}
-
-	public function update() {
-		$table      = static::tableName();
-		$class      = new ReflectionClass(static::class);
-		$properties = array_values( // Filtering filters out array keys, in order to keep integrity we reset indexes using array_values.
-			array_filter(
-				$class->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED),
-				fn ($property) => $property->getName() !== "uuid" // We don't want to update the primary key.
-			)
-		);
-
-		$setPlaceholders = implode(", ", array_map(
-			fn (ReflectionProperty $property) => "{$property->getName()} = ?", $properties
-		));
-
-		$statement = database()->prepare("UPDATE `$table` SET $setPlaceholders WHERE `uuid` = ?;");
-
-		try {
-			$statement->execute(array_merge(
-				array_map(fn(ReflectionProperty $property) => $property->getValue($this), $properties),
-				[$this->uuid],
-			));
-
-			if ($statement->rowCount()) {
-				return $this;
-			} else {
-				return false;
-			}
-		} catch (Exception $e) {
-			throw new Exception("Er is iets fout gegaan tijdens het verwerken van je registratie. Probeer het later nog eens.");
-		}
-	}
-
-	private function generateUuid(): string
+	protected function generateUuid(): string
 	{
 		# Happily copied from https://www.php.net/manual/en/function.uniqid.php#94959
 		# Why oh why does PHP not have builtin UUID generation?!

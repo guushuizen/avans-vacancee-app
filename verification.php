@@ -2,19 +2,9 @@
 
 session_start();
 
-require_once "models/Gebruiker.php";
-require_once "controllers/registration.php";
+require_once "controllers/VerificationController.php";
 
-if (!array_key_exists("user_id", $_SESSION)) {
-  header("Location: /register.php");
-}
-
-$gebruiker = Gebruiker::find($_SESSION['user_id']);
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $error = verifyUser($gebruiker);
-}
-
+$error = (new VerificationController())->run();
 
 require_once "template/header.php";
 

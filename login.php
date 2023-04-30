@@ -1,12 +1,10 @@
 <?php
 
-require_once 'controllers/authentication.php';
+require_once 'controllers/LoginController.php';
 
 require_once 'template/header.php';
 
-if (isset($_POST['emailadres'])) {
-  $error = authenticate($_POST['emailadres'], $_POST['wachtwoord']);
-}
+$error = (new LoginController())->run();
 
 ?>
 
