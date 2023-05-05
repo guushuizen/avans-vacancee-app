@@ -1,8 +1,8 @@
 <?php
 
-require_once "models/Model.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Model.php";
 
-require_once "support/mail.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/support/mail.php";
 
 class Gebruiker extends Model
 {

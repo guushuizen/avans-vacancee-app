@@ -1,8 +1,8 @@
 <?php
 
-require_once 'controllers/LoginController.php';
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/LoginController.php";
 
-require_once 'template/header.php';
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 $error = (new LoginController())->run();
 
@@ -58,4 +58,4 @@ $error = (new LoginController())->run();
 
 <?php
 
-require_once 'template/footer.php';
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";

@@ -4,7 +4,7 @@ namespace controllers\registration;
 use BaseController;
 use Gebruiker;
 
-require_once "controllers/BaseController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
 
 class RegistrationController extends BaseController
 {

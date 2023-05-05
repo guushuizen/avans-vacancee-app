@@ -1,16 +1,14 @@
 <?php
 
-use controllers\registration\RegistrationController;
-
 session_start();
 
-require_once "template/header.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Gebruiker.php";
 
-require_once "models/Gebruiker.php";
-
-require_once "controllers/RegistrationController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/RegistrationController.php";
 
 $error = (new RegistrationController())->run();
+
+require_once "template/header.php";
 
 ?>
   <div class="overflow-hidden rounded-lg bg-white shadow">
@@ -91,4 +89,4 @@ $error = (new RegistrationController())->run();
 
 <?php
 
-require "template/footer.php";
+require "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";

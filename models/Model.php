@@ -1,6 +1,6 @@
 <?php
 
-require_once "./support/database.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/support/database.php";
 
 abstract class Model
 {

@@ -1,8 +1,8 @@
 <?php
 
-require_once "controllers/BaseController.php";
-require_once "models/Gebruiker.php";
-require_once "support/mail.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Gebruiker.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/support/mail.php";
 
 class VerificationPageController extends BaseController
 {

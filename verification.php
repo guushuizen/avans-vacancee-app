@@ -2,13 +2,13 @@
 
 session_start();
 
-require_once "controllers/registration/VerificationController.php";
-require_once "controllers/registration/VerificationPageController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/registration/VerificationController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/registration/VerificationPageController.php";
 
 $gebruiker = (new VerificationPageController())->run();
 $error = (new VerificationController())->run();
 
-require_once "template/header.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
   <div class="overflow-hidden rounded-lg bg-white shadow">
@@ -53,4 +53,4 @@ require_once "template/header.php";
 
 <?php
 
-require_once "template/footer.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";

@@ -1,10 +1,10 @@
 <?php
 
-require_once "controllers/DashboardController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/DashboardController.php";
 
 $gebruiker = (new DashboardController())->run();
 
-require "template/header.php";
+require "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
 
@@ -12,4 +12,4 @@ require "template/header.php";
 
 <?php
 
-require "template/footer.php";
+require "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
