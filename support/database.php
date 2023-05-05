@@ -4,8 +4,9 @@
 $DATABASE = null;
 
 function read_env_file() {
-	if (!file_exists($file_path = __DIR__ . "/../.env")) {
-		throw new Exception("Er is geen .env bestand gevonden in de root van de app!");
+    $file_path = __DIR__ . "/../.env";
+	if (!file_exists($file_path)) {
+        return;
 	}
 
 	$env_file = file_get_contents($file_path);
@@ -21,7 +22,7 @@ function get_env_or_die(string $key) {
 	$value = getenv($key);
 
 	if ($value === false) {
-		throw new Exception("Environment variable $key kon niet worden geladen uit het .env bestand!");
+		throw new Exception("Environment variable $key kon niet worden geladen uit environment variables!");
 	}
 
 	return $value;
