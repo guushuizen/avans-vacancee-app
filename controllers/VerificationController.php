@@ -2,6 +2,7 @@
 
 require_once "controllers/BaseController.php";
 require_once "models/Gebruiker.php";
+require_once "support/mail.php";
 
 class VerificationController extends BaseController {
 
@@ -28,6 +29,7 @@ class VerificationController extends BaseController {
             exit();
         }
 
+        /** @var Gebruiker $gebruiker */
         $gebruiker = Gebruiker::find($_SESSION['user_id']);
         $postedCode = $_POST['code'];
 
@@ -42,6 +44,20 @@ class VerificationController extends BaseController {
         } catch (Exception $e) {
             return $e->getMessage();
         }
+
+        send_email(
+            $gebruiker->volleNaam(),
+            $gebruiker->email,
+            "Jouw account is aangemaakt!",
+            <<<EOT
+Beste $gebruiker->voornaam,
+
+Gefeliciteerd! Jouw account is succesvol aangemaakt en klaar voor gebruik. 
+Je kunt nu beginnen met het aanmaken van jouw vacatures binnen Vacancee en het opzetten van jouw carrièresite.
+
+Bedankt voor je vertrouwen in Vacancee. 
+EOT
+        );
 
         header("Location: /index.php");
         exit();
