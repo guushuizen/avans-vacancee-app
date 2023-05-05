@@ -7,7 +7,7 @@ $error = (new EditController())->run();
 
 [$gebruiker, $vacature] = (new EditPageController())->run();
 
-include_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
     <div class="overflow-hidden rounded-lg bg-white shadow">

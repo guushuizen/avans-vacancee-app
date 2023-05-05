@@ -8,7 +8,7 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/registration/RegistrationC
 
 $error = (new RegistrationController())->run();
 
-require_once "template/header.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
   <div class="overflow-hidden rounded-lg bg-white shadow">

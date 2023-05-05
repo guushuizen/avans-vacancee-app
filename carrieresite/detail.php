@@ -4,7 +4,7 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/carrieresites/DetailContro
 
 [$gebruiker, $carrieresite] = (new DetailController())->run();
 
-include "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
 

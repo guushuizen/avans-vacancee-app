@@ -6,7 +6,7 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/carrieresites/CreateContro
 $error = (new CreateController())->run();
 $gebruiker = (new CreatePageController())->run();
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php"
+include "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php"
 ?>
 
     <div class="overflow-hidden rounded-lg bg-white shadow">

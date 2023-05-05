@@ -4,7 +4,7 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/vacatures/ListController.p
 
 [$gebruiker, $vacatures] = (new ListController())->run();
 
-include_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
     <div class="overflow-hidden rounded-lg bg-white shadow">

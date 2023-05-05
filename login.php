@@ -2,9 +2,9 @@
 
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/LoginController.php";
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
-
 $error = (new LoginController())->run();
+
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
 
