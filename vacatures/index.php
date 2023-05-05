@@ -21,6 +21,9 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
             </div>
 
             <ul role="list" class="divide-y divide-gray-100">
+                <?php if (count($vacatures) === 0) { ?>
+                    <p class="text-xl text-gray-400 text-center py-10">Je hebt nog geen vacatures</p>
+                <?php } ?>
                 <?php
                     /** @var Vacature $vacature */
                     foreach ($vacatures as $vacature) {

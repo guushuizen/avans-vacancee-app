@@ -31,12 +31,12 @@ abstract class Model
 
 		$result = $statement->fetchAll();
 
-        if (!$result)
+        if (!$result && $limit === 1)
             return null;
 
         $result = array_map(fn ($r) => new static(...$r), $result);
 
-        return count($result) === 1 ? $result[0] : $result;
+        return $limit === 1 ? $result[0] : $result;
 	}
 
 	public static function find(string $uuid): Model {
