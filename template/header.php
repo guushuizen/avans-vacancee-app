@@ -10,7 +10,7 @@ function get_classes_for_navigation(string $keyword): string {
   $inactive_classes = "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
   $active_classes = "border-primary text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
 
-  if ($keyword === "vacatures" && str_starts_with($current_url, "/vacatures/"))
+  if (str_starts_with($current_url, "/$keyword/"))
     return $active_classes;
 
   if ($keyword === "index.php" && $current_url === "/index.php")
@@ -79,7 +79,7 @@ function get_classes_for_navigation(string $keyword): string {
                   Vacatures
                 </a>
 
-                <a href="/carrieresite/" class="<?= get_classes_for_navigation('/carrieresite/index.php'); ?>">
+                <a href="/carrieresite/detail.php" class="<?= get_classes_for_navigation('carrieresite'); ?>">
                   Carrièresite
                 </a>
               </div>

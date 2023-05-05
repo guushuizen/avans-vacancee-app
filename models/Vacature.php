@@ -2,8 +2,6 @@
 
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Model.php";
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/support/mail.php";
-
 class Vacature extends Model
 {
     public function __construct(
