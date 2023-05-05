@@ -21,7 +21,9 @@ class Vacature extends Model
 
     public function korteBeschrijving(): string
     {
-        return substr($this->beschrijving, 0, 50) . "...";
+        return strlen($this->beschrijving) > 50
+            ? substr($this->beschrijving, 0, 50) . "..."
+            : $this->beschrijving;
     }
 
     public function create(): self

@@ -3,13 +3,12 @@
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Vacature.php";
 
-class VacatureListController extends BaseController {
+class CreatePageController extends BaseController
+{
 
-    public function run(): array
+    public function run(): Gebruiker
     {
-        $gebruiker = $this->checkAuthentication();
-
-        return [$gebruiker, Vacature::where("gebruiker_uuid", $gebruiker->uuid, null)];
+        return $this->checkAuthentication();
     }
 
     protected function shouldRun(): bool

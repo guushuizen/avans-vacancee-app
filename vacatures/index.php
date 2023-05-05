@@ -1,16 +1,23 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/vacatures/VacatureListController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/vacatures/ListController.php";
 
-[$gebruiker, $vacatures] = (new VacatureListController())->run();
+[$gebruiker, $vacatures] = (new ListController())->run();
 
 include_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
     <div class="overflow-hidden rounded-lg bg-white shadow">
         <div class="px-4 py-5 sm:p-6">
-            <div class="py-3">
+            <div class="py-3 flex flex-row justify-between">
                 <h3 class="text-2xl font-bold leading-6 text-primary">Jouw vacatures</h3>
+
+                <a href="/vacatures/create.php" class="inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Nieuwe vacature
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </a>
             </div>
 
             <ul role="list" class="divide-y divide-gray-100">
