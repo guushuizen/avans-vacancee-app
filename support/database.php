@@ -17,8 +17,6 @@ function read_env_file() {
 	}
 }
 
-read_env_file();
-
 function get_env_or_die(string $key) {
 	$value = getenv($key);
 
@@ -36,13 +34,18 @@ function database(): PDO {
 		return $DATABASE;
 	}
 
-	$host = get_env_or_die('DB_HOST');
+    read_env_file();
+
+    $host = get_env_or_die('DB_HOST');
 	$port = get_env_or_die('DB_PORT');
 	$username = get_env_or_die('DB_USER');
 	$password = get_env_or_die('DB_PASS');
 	$database = get_env_or_die('DB_NAME');
+    $ssl_path = get_env_or_die('DB_SSL');
 
-	$pdo = new PDO("mysql:host=$host;dbname=$database;port=$port", $username, $password);
+	$pdo = new PDO("mysql:host=$host;dbname=$database;port=$port", $username, $password, [
+        PDO::MYSQL_ATTR_SSL_CA => $ssl_path
+    ]);
 
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
