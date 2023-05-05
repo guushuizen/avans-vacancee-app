@@ -4,7 +4,7 @@ session_start();
 
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Gebruiker.php";
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/RegistrationController.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/registration/RegistrationController.php";
 
 $error = (new RegistrationController())->run();
 
