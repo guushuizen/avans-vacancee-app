@@ -3,9 +3,16 @@
 function get_classes_for_navigation(string $url): string {
   $current_url = $_SERVER["REQUEST_URI"];
 
-  return $url === $current_url
-      ? "border-primary text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-      : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
+  if (str_ends_with($current_url, "/")) {
+    $current_url .= "index.php";
+  }
+
+  $inactive_classes = "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
+  $active_classes = "border-primary text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
+
+  return $current_url === $url
+      ? $active_classes
+      : $inactive_classes;
 }
 
 ?>
@@ -58,17 +65,17 @@ function get_classes_for_navigation(string $url): string {
                   </g>
                 </svg>
               </div>
-              <?php if (isset($gebruiker)) { // Dummy for now, should replace someone being logged in. ?>
+              <?php if (isset($gebruiker)) { ?>
               <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                <a href="/" class="<?= get_classes_for_navigation('/'); ?>" aria-current="page">
+                <a href="/" class="<?= get_classes_for_navigation('/index.php'); ?>" aria-current="page">
                   Dashboard
                 </a>
 
-                <a href="/vacatures/" class="<?= get_classes_for_navigation('/vacatures'); ?>" aria-current="page">
+                <a href="/vacatures/" class="<?= get_classes_for_navigation('/vacatures/index.php'); ?>" aria-current="page">
                   Vacatures
                 </a>
 
-                <a href="#" class="<?= get_classes_for_navigation('/vacatures'); ?>">
+                <a href="/carrieresite/" class="<?= get_classes_for_navigation('/carrieresite/index.php'); ?>">
                   Carrièresite
                 </a>
               </div>
