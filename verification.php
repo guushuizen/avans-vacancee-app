@@ -2,8 +2,10 @@
 
 session_start();
 
-require_once "controllers/VerificationController.php";
+require_once "controllers/registration/VerificationController.php";
+require_once "controllers/registration/VerificationPageController.php";
 
+$gebruiker = (new VerificationPageController())->run();
 $error = (new VerificationController())->run();
 
 require_once "template/header.php";

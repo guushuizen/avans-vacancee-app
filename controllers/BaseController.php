@@ -1,5 +1,7 @@
 <?php
 
+require_once "models/Gebruiker.php";
+
 abstract class BaseController {
 
     /**
@@ -20,5 +22,27 @@ abstract class BaseController {
      * @return bool
      */
     protected abstract function shouldRun(): bool;
+
+    protected function checkAuthentication(): Gebruiker {
+        if (session_id() === "") session_start();
+
+        if (array_key_exists("user_id", $_SESSION) && !empty($_SESSION['user_id'])) {
+            try {
+                /** @var Gebruiker $gebruiker */
+                $gebruiker = Gebruiker::find($_SESSION['user_id']);
+
+                if ($gebruiker->geblokkeerd && !str_contains($_SERVER['REQUEST_URI'], "verification.php")) {
+                    header("Location: /verification.php");
+                    exit();
+                } else {
+                    return $gebruiker;
+                }
+            } catch (PDOException $exception) { }
+        }
+
+        session_destroy();
+        header("Location: /login.php");
+        exit();
+    }
 
 }

@@ -8,10 +8,16 @@ abstract class Model
 
 	public static abstract function tableName(): string;
 
-	public static function where(string $key, mixed $value): Model|null {
+	public static function where(string $key, mixed $value, ?int $limit = 1): Model|null {
 		$table = static::tableName();
 
-		$statement = database()->prepare("SELECT * FROM $table WHERE `$key` = ? LIMIT 1;");
+        $query = "SELECT * FROM $table WHERE `$key` = ?";
+
+        if (isset($limit)) {
+            $query .= " LIMIT $limit";
+        }
+
+		$statement = database()->prepare("$query;");
 
 		$statement->execute([$value]);
 
@@ -37,7 +43,7 @@ abstract class Model
 	 */
 	public abstract function create(): Model;
 
-	public abstract function update();
+	public abstract function update(): void;
 
 	protected function generateUuid(): string
 	{

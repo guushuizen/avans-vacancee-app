@@ -4,7 +4,8 @@ require_once "controllers/BaseController.php";
 require_once "models/Gebruiker.php";
 require_once "support/mail.php";
 
-class VerificationController extends BaseController {
+class VerificationController extends BaseController
+{
 
     /**
      * Verifies the posted verification code against
@@ -24,10 +25,7 @@ class VerificationController extends BaseController {
             return null;
         }
 
-        if (!array_key_exists("user_id", $_SESSION)) {
-            header("Location: /register.php");
-            exit();
-        }
+        $this->checkAuthentication();
 
         /** @var Gebruiker $gebruiker */
         $gebruiker = Gebruiker::find($_SESSION['user_id']);
@@ -38,6 +36,7 @@ class VerificationController extends BaseController {
         }
 
         $gebruiker->emailCode = null;
+        $gebruiker->geblokkeerd = false;
 
         try {
             $gebruiker->update();

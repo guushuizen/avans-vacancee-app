@@ -1,12 +1,14 @@
 <?php
 
+use controllers\registration\RegistrationController;
+
 session_start();
 
 require_once "template/header.php";
 
 require_once "models/Gebruiker.php";
 
-require_once "controllers/RegistrationController.php.php";
+require_once "controllers/RegistrationController.php";
 
 $error = (new RegistrationController())->run();
 

@@ -1,20 +1,8 @@
 <?php
 
-require_once "models/Gebruiker.php";
+require_once "controllers/DashboardController.php";
 
-session_start();
-
-if (!array_key_exists("user_id", $_SESSION)) {
-	header("Location: /login.php");
-  exit();
-}
-
-try {
-	$gebruiker = Gebruiker::find($_SESSION['user_id']);
-} catch (Error $e) {
-  header("Location: /index.php");
-  exit();
-}
+$gebruiker = (new DashboardController())->run();
 
 require "template/header.php";
 

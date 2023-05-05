@@ -7,17 +7,17 @@ require_once "support/mail.php";
 class Gebruiker extends Model
 {
 	public function __construct(
-		public string $voornaam,
-		public string $achternaam,
-		public string $bedrijfsnaam,
-		public string $email,
-		public string $telefoonnummer,
+		public string     $voornaam,
+		public string     $achternaam,
+		public string     $bedrijfsnaam,
+		public string     $email,
+		public string     $telefoonnummer,
 		protected ?string $wachtwoord,
-		public bool $geblokeerd = false,
-		public ?string $uuid = null,
-		public ?string $laatsteBetaalDatum = null,
-		public ?string $smsCode = null,
-		public ?string $emailCode = null,
+		public bool       $geblokkeerd = true,
+		public ?string    $uuid = null,
+		public ?string    $laatsteBetaalDatum = null,
+		public ?string    $smsCode = null,
+		public ?string    $emailCode = null,
 	) { }
 
 	public static function tableName(): string
@@ -64,7 +64,7 @@ EOT
 
         $tableName = static::tableName();
         $statement = database()->prepare(<<<END
-    INSERT INTO $tableName (`uuid`, `voornaam`, `achternaam`, `bedrijfsnaam`, `email`, `telefoonnummer`, `wachtwoord`, `geblokeerd`, `laatsteBetaalDatum`, `smsCode`, `emailCode`)
+    INSERT INTO $tableName (`uuid`, `voornaam`, `achternaam`, `bedrijfsnaam`, `email`, `telefoonnummer`, `wachtwoord`, `geblokkeerd`, `laatsteBetaalDatum`, `smsCode`, `emailCode`)
     VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? 
     );
@@ -79,7 +79,7 @@ EOT
             $this->email,
             $this->telefoonnummer,
             $this->wachtwoord,
-            $this->geblokeerd ? 1 : 0,
+            $this->geblokkeerd ? 1 : 0,
             $this->laatsteBetaalDatum,
             $this->smsCode,
             $this->emailCode
@@ -95,12 +95,12 @@ EOT
 		return $this->wachtwoord === $wachtwoord;
 	}
 
-    public function update()
+    public function update(): void
     {
         $tableName = static::tableName();
         $statement = database()->prepare(<<<END
     UPDATE $tableName
-    SET `voornaam` = ?, `achternaam` = ?, `email` = ?, `telefoonnummer` = ?, `wachtwoord` = ?, `geblokeerd` = ?, `laatsteBetaalDatum` = ?, `smsCode` = ?, `emailCode` = ?
+    SET `voornaam` = ?, `achternaam` = ?, `email` = ?, `telefoonnummer` = ?, `wachtwoord` = ?, `geblokkeerd` = ?, `laatsteBetaalDatum` = ?, `smsCode` = ?, `emailCode` = ?
     WHERE `uuid` = ?
     LIMIT 1;
     END
@@ -112,7 +112,7 @@ EOT
             $this->email,
             $this->telefoonnummer,
             $this->wachtwoord,
-            $this->geblokeerd ? 1 : 0,
+            $this->geblokkeerd ? 1 : 0,
             $this->laatsteBetaalDatum,
             $this->smsCode,
             $this->emailCode,

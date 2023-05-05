@@ -1,8 +1,13 @@
 <?php
 
+namespace controllers\registration;
+use BaseController;
+use Gebruiker;
+
 require_once "controllers/BaseController.php";
 
-class RegistrationController extends BaseController {
+class RegistrationController extends BaseController
+{
 
     /**
      * Attempts to create a new Gebruiker based on the POST request body
