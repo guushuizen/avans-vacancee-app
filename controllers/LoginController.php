@@ -19,8 +19,8 @@ class LoginController extends BaseController
             return null;
         }
 
-        $email = $_POST["email"];
-        $password = $_POST["password"];
+        $email = $_POST["emailadres"];
+        $password = $_POST["wachtwoord"];
 
         $gebruiker = Gebruiker::where("email", $email);
 
@@ -37,6 +37,6 @@ class LoginController extends BaseController
 
     protected function shouldRun(): bool
     {
-        return $_SERVER['REQUEST_METHOD'] === "POST" && array_key_exists("email", $_POST);
+        return $_SERVER['REQUEST_METHOD'] === "POST" && array_key_exists("emailadres", $_POST);
     }
 }
