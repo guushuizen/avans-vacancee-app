@@ -4,7 +4,7 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/vacatures/VacatureListCont
 
 [$gebruiker, $vacatures] = (new VacatureListController())->run();
 
-include "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+include_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 ?>
     <div class="overflow-hidden rounded-lg bg-white shadow">
@@ -41,4 +41,4 @@ include "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 <?php
 
-include "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
+include_once "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
