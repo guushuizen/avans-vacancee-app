@@ -9,7 +9,10 @@ class ListController extends BaseController {
     {
         $gebruiker = $this->checkAuthentication();
 
-        return [$gebruiker, Vacature::where("gebruiker_uuid", $gebruiker->uuid, null)];
+        return [
+            $gebruiker,
+            Vacature::where(["gebruiker_uuid" => $gebruiker->uuid], null)
+        ];
     }
 
     protected function shouldRun(): bool

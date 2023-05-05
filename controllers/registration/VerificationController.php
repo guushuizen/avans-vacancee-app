@@ -58,8 +58,7 @@ Bedankt voor je vertrouwen in Vacancee.
 EOT
         );
 
-        header("Location: /index.php");
-        exit();
+        $this->redirect("/index.php");
     }
 
     protected function shouldRun(): bool

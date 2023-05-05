@@ -32,8 +32,7 @@ abstract class BaseController {
                 $gebruiker = Gebruiker::find($_SESSION['user_id']);
 
                 if ($gebruiker->geblokkeerd && !str_contains($_SERVER['REQUEST_URI'], "verification.php")) {
-                    header("Location: /verification.php");
-                    exit();
+                    $this->redirect("/verification.php");
                 } else {
                     return $gebruiker;
                 }
@@ -41,8 +40,11 @@ abstract class BaseController {
         }
 
         session_destroy();
-        header("Location: /login.php");
-        exit();
+        $this->redirect("/login.php");
     }
 
+    protected function redirect(string $uri) {
+        header("Location: $uri");
+        exit();
+    }
 }

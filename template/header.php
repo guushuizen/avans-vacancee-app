@@ -1,6 +1,6 @@
 <?php
 
-function get_classes_for_navigation(string $url): string {
+function get_classes_for_navigation(string $keyword): string {
   $current_url = $_SERVER["REQUEST_URI"];
 
   if (str_ends_with($current_url, "/")) {
@@ -10,9 +10,13 @@ function get_classes_for_navigation(string $url): string {
   $inactive_classes = "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
   $active_classes = "border-primary text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
 
-  return $current_url === $url
-      ? $active_classes
-      : $inactive_classes;
+  if ($keyword === "vacatures" && str_starts_with($current_url, "/vacatures/"))
+    return $active_classes;
+
+  if ($keyword === "index.php" && $current_url === "/index.php")
+    return $active_classes;
+
+  return $inactive_classes;
 }
 
 ?>
@@ -67,11 +71,11 @@ function get_classes_for_navigation(string $url): string {
               </div>
               <?php if (isset($gebruiker)) { ?>
               <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                <a href="/" class="<?= get_classes_for_navigation('/index.php'); ?>" aria-current="page">
+                <a href="/" class="<?= get_classes_for_navigation('index.php'); ?>" aria-current="page">
                   Dashboard
                 </a>
 
-                <a href="/vacatures/" class="<?= get_classes_for_navigation('/vacatures/index.php'); ?>" aria-current="page">
+                <a href="/vacatures/" class="<?= get_classes_for_navigation('vacatures'); ?>" aria-current="page">
                   Vacatures
                 </a>
 

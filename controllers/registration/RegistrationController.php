@@ -44,8 +44,7 @@ class RegistrationController extends BaseController
 
         $_SESSION['user_id'] = $gebruiker->uuid; # Logs the user in, very insecurely.
 
-        header("Location: /verification.php");
-        exit();
+        $this->redirect("/verification.php");
     }
 
     protected function shouldRun(): bool

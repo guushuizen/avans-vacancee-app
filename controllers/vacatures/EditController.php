@@ -3,7 +3,7 @@
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Vacature.php";
 
-class CreateController extends BaseController
+class EditController extends BaseController
 {
 
     public function run(): ?string
@@ -13,13 +13,21 @@ class CreateController extends BaseController
 
         $gebruiker = $this->checkAuthentication();
 
+        if (!array_key_exists("uuid", $_POST))
+            $this->redirect("/vacatures/");
+
         try {
-            $vacature = (new Vacature(
-                gebruiker_uuid: $gebruiker->uuid,
-                titel: $_POST["titel"],
-                beschrijving: $_POST["beschrijving"],
-                salarisindicatie: $_POST["salarisindicatie"]
-            ))->create();
+            /** @var Vacature $vacature */
+            $vacature = Vacature::where([
+                "gebruiker_uuid" => $gebruiker->uuid,
+                "uuid" => $_POST["uuid"],
+            ]);
+
+            $vacature->titel = $_POST['titel'];
+            $vacature->salarisindicatie = $_POST['salarisindicatie'];
+            $vacature->beschrijving = $_POST['beschrijving'];
+
+            $vacature->update();
 
             $this->redirect("/vacatures/detail.php?uuid=$vacature->uuid");
         } catch (Exception $e) {

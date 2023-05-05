@@ -33,7 +33,7 @@ include_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
                             </div>
                         </div>
                         <div class="flex flex-none items-center gap-x-4">
-                            <a href="#" class="flex flex-row items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                            <a href="/vacatures/detail.php?uuid=<?= $vacature->uuid; ?>" class="flex flex-row items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                 Meer
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />

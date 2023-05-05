@@ -8,10 +8,18 @@ abstract class Model
 
 	public static abstract function tableName(): string;
 
-	public static function where(string $key, mixed $value, ?int $limit = 1): Model|array|null {
+	public static function where(array $filters, ?int $limit = 1): Model|array|null {
 		$table = static::tableName();
 
-        $query = "SELECT * FROM $table WHERE `$key` = ?";
+        $query = "SELECT * FROM $table";
+
+        if (count($filters) > 0) {
+            $query .= " WHERE ";
+            $columns = array_keys($filters);
+            foreach ($columns as $index => $column) {
+                $query .= " " . ($index > 0 ? "AND " : "") . "`$column` = ?";
+            }
+        }
 
         if (isset($limit)) {
             $query .= " LIMIT $limit";
@@ -19,7 +27,7 @@ abstract class Model
 
 		$statement = database()->prepare("$query;");
 
-		$statement->execute([$value]);
+		$statement->execute(array_values($filters));
 
 		$result = $statement->fetchAll();
 

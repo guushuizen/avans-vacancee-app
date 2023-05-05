@@ -22,14 +22,13 @@ class LoginController extends BaseController
         $email = $_POST["emailadres"];
         $password = $_POST["wachtwoord"];
 
-        $gebruiker = Gebruiker::where("email", $email);
+        $gebruiker = Gebruiker::where(["email" => $email]);
 
         if (isset($gebruiker) && $gebruiker->authenticate($password)) {
             session_start();
             $_SESSION['user_id'] = $gebruiker->uuid;
 
-            header('Location: /');
-            exit();
+            $this->redirect("/");
         }
 
         return "Er kon geen gebruiker worden gevonden met deze combinatie van e-mailadres en wachtwoord!";
