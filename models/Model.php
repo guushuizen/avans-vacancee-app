@@ -8,7 +8,7 @@ abstract class Model
 
 	public static abstract function tableName(): string;
 
-	public static function where(string $key, mixed $value, ?int $limit = 1): Model|null {
+	public static function where(string $key, mixed $value, ?int $limit = 1): Model|array|null {
 		$table = static::tableName();
 
         $query = "SELECT * FROM $table WHERE `$key` = ?";
@@ -21,9 +21,14 @@ abstract class Model
 
 		$statement->execute([$value]);
 
-		$result = $statement->fetch();
+		$result = $statement->fetchAll();
 
-        return $result ? new static(...$result) : null;
+        if (!$result)
+            return null;
+
+        $result = array_map(fn ($r) => new static(...$r), $result);
+
+        return count($result) === 1 ? $result[0] : $result;
 	}
 
 	public static function find(string $uuid): Model {
