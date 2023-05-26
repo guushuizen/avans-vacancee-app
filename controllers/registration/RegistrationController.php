@@ -32,6 +32,10 @@ class RegistrationController extends BaseController
             return "De ingevoerde velden kloppen niet (helemaal). Kijk deze na en probeer het opnieuw!";
         }
 
+        if (!is_null(Gebruiker::where(["email" => $gebruiker->email]))) {
+            return "Er bestaat reeds een gebruiker met dit e-mailadres.";
+        }
+
         try {
             $gebruiker->create();
         } catch (Exception $e) {
