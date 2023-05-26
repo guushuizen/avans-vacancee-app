@@ -31,8 +31,11 @@ abstract class Model
 
 		$result = $statement->fetchAll();
 
-        if (!$result && $limit === 1)
+        if (!$result && $limit === 1) {
             return null;
+        } else if (!$result && $limit !== 1) {
+            return [];
+        }
 
         $result = array_map(fn ($r) => new static(...$r), $result);
 
