@@ -13,6 +13,12 @@ class Carrieresite extends Model
         public ?string    $uuid = null,
     ) { }
 
+    public function publicUrl(): string {
+        $root_domain = get_env_or_die("ROOT_DOMAIN");
+
+        return "{$this->domeinnaam}.$root_domain/";
+    }
+
     public static function tableName(): string
     {
         return "carrieresites";
