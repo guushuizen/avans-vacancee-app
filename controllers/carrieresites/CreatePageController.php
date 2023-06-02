@@ -1,7 +1,7 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Carrieresite.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/BaseController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Carrieresite.php";
 
 class CreatePageController extends BaseController
 {

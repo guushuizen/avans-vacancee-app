@@ -1,12 +1,12 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/carrieresites/EditPageController.php";
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/carrieresites/EditController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/carrieresites/EditPageController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/carrieresites/EditController.php";
 
 $error = (new EditController())->run();
 [$gebruiker, $carrieresite] = (new EditPageController())->run();
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php"
+require_once "{$_SERVER["ROOT_PATH"]}/template/header.php"
 ?>
 
     <div class="overflow-hidden rounded-lg bg-white shadow">
@@ -77,4 +77,4 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php"
 
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
+require_once "{$_SERVER["ROOT_PATH"]}/template/footer.php";

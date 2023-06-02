@@ -5,13 +5,14 @@ function send_email(
 	string $recipientEmail,
 	string $subject,
 	string $body,
+    string $senderName = "Vacancee"
 ): bool {
 	$body = json_encode([
 		"Messages" => [
 			[
 				"From" => [
 					"Email" => "vacancee@guus.tech",
-					"Name" => "Vacancee"
+					"Name" => $senderName
 				],
 				"To" => [
 					[

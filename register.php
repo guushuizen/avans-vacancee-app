@@ -2,13 +2,13 @@
 
 session_start();
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Gebruiker.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Gebruiker.php";
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/registration/RegistrationController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/registration/RegistrationController.php";
 
 $error = (new RegistrationController())->run();
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+require_once "{$_SERVER["ROOT_PATH"]}/template/header.php";
 
 ?>
   <div class="overflow-hidden rounded-lg bg-white shadow">
@@ -89,4 +89,4 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 <?php
 
-require "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
+require "{$_SERVER["ROOT_PATH"]}/template/footer.php";

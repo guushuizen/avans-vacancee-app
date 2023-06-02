@@ -1,10 +1,10 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/LoginController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/LoginController.php";
 
 $error = (new LoginController())->run();
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+require_once "{$_SERVER["ROOT_PATH"]}/template/header.php";
 
 ?>
 
@@ -73,4 +73,4 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
+require_once "{$_SERVER["ROOT_PATH"]}/template/footer.php";

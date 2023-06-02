@@ -1,12 +1,12 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/carrieresites/CreatePageController.php";
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/carrieresites/CreateController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/carrieresites/CreatePageController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/carrieresites/CreateController.php";
 
 $error = (new CreateController())->run();
 $gebruiker = (new CreatePageController())->run();
 
-include "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php"
+include "{$_SERVER["ROOT_PATH"]}/template/header.php"
 ?>
 
     <div class="overflow-hidden rounded-lg bg-white shadow">
@@ -77,4 +77,4 @@ include "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php"
 
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
+require_once "{$_SERVER["ROOT_PATH"]}/template/footer.php";

@@ -1,10 +1,10 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/vacatures/DetailController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/vacatures/DetailController.php";
 
 [$gebruiker, $vacature] = (new DetailController())->run();
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+require_once "{$_SERVER["ROOT_PATH"]}/template/header.php";
 
 ?>
 
@@ -75,4 +75,4 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 <?php
 
-include "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
+include "{$_SERVER["ROOT_PATH"]}/template/footer.php";

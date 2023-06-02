@@ -1,6 +1,6 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Model.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Model.php";
 
 class Vacature extends Model
 {

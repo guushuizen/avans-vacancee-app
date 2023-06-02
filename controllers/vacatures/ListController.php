@@ -1,7 +1,7 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Vacature.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/BaseController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Vacature.php";
 
 class ListController extends BaseController {
 

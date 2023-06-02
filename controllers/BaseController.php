@@ -1,6 +1,6 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Gebruiker.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Gebruiker.php";
 
 abstract class BaseController {
 

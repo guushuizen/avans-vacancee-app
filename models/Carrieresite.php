@@ -1,7 +1,8 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Model.php";
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/support/mail.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Model.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Gebruiker.php";
+require_once "{$_SERVER["ROOT_PATH"]}/support/mail.php";
 
 class Carrieresite extends Model
 {
@@ -22,6 +23,11 @@ class Carrieresite extends Model
     public static function tableName(): string
     {
         return "carrieresites";
+    }
+
+    public function gebruiker(): Gebruiker
+    {
+        return Gebruiker::find($this->gebruiker_uuid);
     }
 
     public function create(): self

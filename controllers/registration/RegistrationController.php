@@ -1,6 +1,6 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/BaseController.php";
 
 class RegistrationController extends BaseController
 {

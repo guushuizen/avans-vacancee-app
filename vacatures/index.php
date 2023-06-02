@@ -1,10 +1,10 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/vacatures/ListController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/vacatures/ListController.php";
 
 [$gebruiker, $vacatures] = (new ListController())->run();
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
+require_once "{$_SERVER["ROOT_PATH"]}/template/header.php";
 
 ?>
     <div class="overflow-hidden rounded-lg bg-white shadow">
@@ -51,4 +51,4 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/template/header.php";
 
 <?php
 
-include_once "{$_SERVER["DOCUMENT_ROOT"]}/template/footer.php";
+include_once "{$_SERVER["ROOT_PATH"]}/template/footer.php";

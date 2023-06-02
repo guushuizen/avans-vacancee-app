@@ -1,7 +1,7 @@
 <?php
 
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/models/Gebruiker.php";
-require_once "{$_SERVER["DOCUMENT_ROOT"]}/controllers/BaseController.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Gebruiker.php";
+require_once "{$_SERVER["ROOT_PATH"]}/controllers/BaseController.php";
 
 class LoginController extends BaseController
 {
