@@ -13,12 +13,18 @@ class CreateController extends BaseController
 
         $gebruiker = $this->checkAuthentication();
 
+        $carrieresite_uuid = Model::generateUuid();
+
         try {
             (new Carrieresite(
                 gebruiker_uuid: $gebruiker->uuid,
                 titel: $_POST["titel"],
                 primaire_kleur: $_POST["primaire_kleur"],
-                domeinnaam: $_POST["domeinnaam"]
+                domeinnaam: $_POST["domeinnaam"],
+                logo: array_key_exists("logo", $_FILES) && $_FILES["logo"]["error"] == UPLOAD_ERR_OK
+                    ? $this->saveFile("logo", $carrieresite_uuid)
+                    : null,
+                uuid: $carrieresite_uuid
             ))->create();
 
             $this->redirect("/carrieresite/detail.php");

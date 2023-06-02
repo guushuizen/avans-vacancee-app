@@ -47,4 +47,18 @@ abstract class BaseController {
         header("Location: $uri");
         exit();
     }
+
+    protected function saveFile(string $name, string $storage_path): string
+    {
+        $uploaded_file_array = $_FILES[$name];
+        $extension = pathinfo($uploaded_file_array["full_path"], PATHINFO_EXTENSION);
+
+        $absolute_path = $_SERVER["ROOT_PATH"] . "/storage/$storage_path/$name.$extension";
+        if (!file_exists(dirname($absolute_path)))
+            mkdir(dirname($absolute_path), recursive: true);
+
+        move_uploaded_file($uploaded_file_array["tmp_name"], $absolute_path);
+
+        return $absolute_path;
+    }
 }

@@ -29,16 +29,16 @@ include "{$_SERVER["ROOT_PATH"]}/template/header.php"
                 </div>
             <?php } ?>
 
-            <form action="" method="POST" class="flex flex-col">
-                <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                    <div class="sm:col-span-6">
+            <form action="" enctype="multipart/form-data" method="POST" class="flex flex-col">
+                <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                    <div class="sm:col-span-2">
                         <label class="block text-sm font-medium text-gray-700">
                             Titel
                             <input autofocus tabindex="1" required type="text" name="titel" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
                         </label>
                     </div>
 
-                    <div class="sm:col-span-6">
+                    <div class="sm:col-span-2">
                         <label class="block text-sm font-medium text-gray-700">
                             Subdomein
                             <div class="relative mt-2 rounded-md shadow-sm">
@@ -50,11 +50,18 @@ include "{$_SERVER["ROOT_PATH"]}/template/header.php"
                         </label>
                     </div>
 
-                    <div class="sm:col-span-6">
+                    <div class="sm:col-span-1">
                         <label class="block text-sm font-medium text-gray-700">
                             Primaire kleur
                             <div id="color-picker" class="mt-2" acp-color="#ff2b64"></div>
                             <input type="hidden" name="primaire_kleur" id="primaire_kleur" value="#ff2b64">
+                        </label>
+                    </div>
+
+                    <div class="sm:col-span-1">
+                        <label class="block text-sm font-medium leading-6 text-gray-900">
+                            Logo
+                            <input accept="image/*" name="logo" type="file" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                         </label>
                     </div>
                 </div>

@@ -20,6 +20,9 @@ class EditController extends BaseController
             $carrieresite->titel = $_POST['titel'];
             $carrieresite->domeinnaam = $_POST['domeinnaam'];
             $carrieresite->primaire_kleur = $_POST['primaire_kleur'];
+            $carrieresite->logo = array_key_exists("logo", $_FILES) && $_FILES["logo"]['error'] == UPLOAD_ERR_OK
+                    ? $this->saveFile("logo", $carrieresite->uuid)
+                    : $carrieresite->logo;
 
             $carrieresite->update();
 

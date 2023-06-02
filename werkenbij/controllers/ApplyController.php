@@ -35,8 +35,8 @@ class ApplyController extends WerkenbijBaseController {
             $_POST["achternaam"],
             $_POST["email"],
             $_POST["telefoonnummer"],
-            $this->saveFile("cv_bestand", $sollicitant_uuid),
-            $this->saveFile("motivatiebrief_bestand", $sollicitant_uuid)
+            $this->saveFile("cv_bestand", "{$this->vacature->uuid}/$sollicitant_uuid"),
+            $this->saveFile("motivatiebrief_bestand", "{$this->vacature->uuid}/$sollicitant_uuid")
         );
 
         try {
@@ -78,19 +78,6 @@ HERE
         );
 
         return true;
-    }
-
-    private function saveFile(string $name, string $model_uuid): string {
-        $uploaded_file_array = $_FILES[$name];
-        $extension = pathinfo($uploaded_file_array["full_path"], PATHINFO_EXTENSION);
-
-        $storage_path = $_SERVER["ROOT_PATH"] . "/storage/{$this->vacature->uuid}/$model_uuid/$name.$extension";
-        if (!file_exists(dirname($storage_path)))
-            mkdir(dirname($storage_path), recursive: true);
-
-        move_uploaded_file($uploaded_file_array["tmp_name"], $storage_path);
-
-        return $storage_path;
     }
 
     protected function shouldRun(): bool

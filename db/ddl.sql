@@ -30,6 +30,7 @@ CREATE TABLE `carrieresites`
     `uuid`           VARCHAR(36)  NOT NULL,
     `gebruiker_uuid` VARCHAR(36)  NOT NULL,
     `titel`          VARCHAR(256) NOT NULL,
+    `logo`           VARCHAR(256) NOT NULL,
     `domeinnaam`     VARCHAR(256) NOT NULL,
     `primaire_kleur` VARCHAR(256) NOT NULL,
     FOREIGN KEY `gebruiker_uuid` (`gebruiker_uuid`) REFERENCES `gebruikers` (`uuid`) ON DELETE CASCADE,

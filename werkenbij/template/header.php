@@ -36,7 +36,11 @@
                     <div class="flex">
                         <div class="flex flex-shrink-0 items-center">
                             <a href="/">
-                                <h1 class="text-3xl text-primary font-sans-serif font-bold"><?= $carrieresite->titel ?></h1>
+                                <?php if (!is_null($carrieresite->logo)) { ?>
+                                    <img src="<?= $carrieresite->getLogoAsBase64(); ?>" class="h-10 w-auto"/>
+                                <?php } else { ?>
+                                    <h1 class="text-3xl text-primary font-sans-serif font-bold"><?= $carrieresite->titel ?></h1>
+                                <?php } ?>
                             </a>
                         </div>
                         <div class="hidden sm:-my-px sm:ml-10 sm:flex sm:space-x-8">
