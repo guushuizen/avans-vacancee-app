@@ -27,6 +27,15 @@ class Sollicitant extends Model
         return "sollicitanten";
     }
 
+    public function getCvBestandAsBase64() {
+        return "data:application/pdf;base64," . base64_encode(file_get_contents($this->cv_bestand));
+    }
+
+    public function getMotivatiebriefBestandAsBase64()
+    {
+        return "data:application/pdf;base64," . base64_encode(file_get_contents($this->motivatiebrief_bestand));
+    }
+
     public function create(): self
     {
         $this->uuid = $this->uuid ?? $this->generateUuid();

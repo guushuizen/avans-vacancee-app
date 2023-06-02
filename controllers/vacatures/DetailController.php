@@ -2,6 +2,7 @@
 
 require_once "{$_SERVER["ROOT_PATH"]}/controllers/BaseController.php";
 require_once "{$_SERVER["ROOT_PATH"]}/models/Vacature.php";
+require_once "{$_SERVER["ROOT_PATH"]}/models/Sollicitant.php";
 
 class DetailController extends BaseController {
 
@@ -20,7 +21,8 @@ class DetailController extends BaseController {
                 "uuid" => $vacature_uuid,
             ]);
 
-            return [$gebruiker, $vacature];
+            $sollicitanten = Sollicitant::where(['vacature_uuid' => $vacature_uuid], null);
+            return [$gebruiker, $vacature, $sollicitanten];
         } catch (Exception $e) {
             $this->redirect("/vacatures/");
         }

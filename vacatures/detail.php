@@ -2,7 +2,7 @@
 
 require_once "{$_SERVER["ROOT_PATH"]}/controllers/vacatures/DetailController.php";
 
-[$gebruiker, $vacature] = (new DetailController())->run();
+[$gebruiker, $vacature, $sollicitanten] = (new DetailController())->run();
 
 require_once "{$_SERVER["ROOT_PATH"]}/template/header.php";
 
@@ -64,9 +64,64 @@ require_once "{$_SERVER["ROOT_PATH"]}/template/header.php";
 
             <div>
                 <div class="mt-6">
-                    <p class="text-xl text-gray-400 text-center py-6">
-                        Hier zal je jouw toekomstig talent zien
-                    </p>
+                    <?php if (count($sollicitanten) === 0) { ?>
+                        <p class="text-xl text-gray-400 text-center py-6">
+                            Hier zal je jouw toekomstig talent zien
+                        </p>
+                    <?php } else { ?>
+                        <ul role="list" class="divide-y divide-gray-100">
+                            <?php
+                                /** @var Sollicitant $sollicitant */
+                                foreach ($sollicitanten as $sollicitant) {
+                            ?>
+                                <li  x-data="{open: false}" x-on:click.prevent="open = !open">
+                                    <div class="flex justify-between gap-x-6 py-5 cursor-pointer">
+                                        <div class="flex gap-x-4 min-w-0 flex-auto">
+                                            <p class="text-sm font-semibold leading-6 text-gray-900"><?= $sollicitant->volleNaam(); ?></p>
+                                        </div>
+
+                                        <p href="#" class="text-gray-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                            </svg>
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-gray-100 rounded-sm py-2 px-4" x-show="open" x-cloak x-transition>
+                                        <dl class="grid grid-cols-1 sm:grid-cols-2">
+                                            <div class="px-4 py-3 sm:col-span-1 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-gray-900">Voornaam</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><?= $sollicitant->voornaam ?></dd>
+                                            </div>
+                                            <div class="px-4 py-3 sm:col-span-1 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-gray-900">Achternaam</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><?= $sollicitant->achternaam ?></dd>
+                                            </div>
+                                            <div class="px-4 py-3 sm:col-span-1 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-gray-900">E-mailadres</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><?= $sollicitant->email ?></dd>
+                                            </div>
+                                            <div class="px-4 py-3 sm:col-span-1 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-gray-900">Telefoonnummer</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><?= $sollicitant->telefoonnummer ?></dd>
+                                            </div>
+                                            <div class="px-4 py-3 sm:col-span-2 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-gray-900">Curriculum vitae</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                                                    <iframe src="<?= $sollicitant->getCvBestandAsBase64() ?>" datatype="application/pdf" width="100%" height="500px"></iframe>
+                                                </dd>
+                                            <div class="px-4 py-3 sm:col-span-2 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-gray-900">Motivatiebrief</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                                                    <iframe src="<?= $sollicitant->getMotivatiebriefBestandAsBase64() ?>" datatype="application/pdf" width="100%" height="500px"></iframe>
+                                                </dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
                 </div>
             </div>
         </div>
