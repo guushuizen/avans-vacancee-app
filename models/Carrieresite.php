@@ -16,9 +16,9 @@ class Carrieresite extends Model
     ) { }
 
     public function publicUrl(): string {
-        $root_domain = get_env_or_die("ROOT_DOMAIN");
+        $careersite_domain = get_env_or_die("CAREERSITE_DOMAIN");
 
-        return "{$this->domeinnaam}.$root_domain/";
+        return "{$this->domeinnaam}.$careersite_domain/";
     }
 
     public static function tableName(): string
