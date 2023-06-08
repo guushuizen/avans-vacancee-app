@@ -15,7 +15,7 @@ require_once "{$_SERVER["ROOT_PATH"]}/werkenbij/template/header.php";
         <div class="py-3 flex flex-row justify-between">
             <h3 class="text-2xl font-bold leading-6 text-primary"><?= $vacature->titel; ?></h3>
 
-            <a href="#sollicitatie" class="inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <a href="#sollicitatie" class="inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
                Solliciteer nu
             </a>
         </div>

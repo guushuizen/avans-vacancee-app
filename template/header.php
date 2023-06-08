@@ -89,7 +89,7 @@ function get_classes_for_navigation(string $keyword): string {
                     <div class="hidden sm:ml-6 sm:flex sm:items-center">
                         <div class="relative ml-3" x-data="{open: false}">
                             <div>
-                                <button type="button" x-transition @click="open = !open" class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                <button type="button" x-transition @click="open = !open" class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                     <?php echo $gebruiker->volleNaam(); ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />

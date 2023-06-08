@@ -15,7 +15,7 @@ include_once $_SERVER["ROOT_PATH"] . "/werkenbij/template/header.php";
 
             <form method="GET" class="flex flex-row">
                 <label>
-                    <input value="<?= array_key_exists('search', $_GET) && $_GET['search']; ?>" placeholder="Zoek een vacature" type="text" name="search" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input value="<?= array_key_exists('search', $_GET) ? $_GET['search'] : ""; ?>" placeholder="Zoek een vacature" type="text" name="search" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
                 </label>
 
                 <button type="submit" class="p-2 bg-primary rounded-md text-white ml-2">
