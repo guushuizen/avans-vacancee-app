@@ -6,6 +6,14 @@ require_once "{$_SERVER["ROOT_PATH"]}/models/Sollicitant.php";
 
 class DetailController extends BaseController {
 
+    /**
+     * Seeks the Vacature for the current Gebruiker and returns it
+     * if found, else redirects to the create page.
+     *
+     * @return mixed
+     *  The `Vacature` model if found, `void` if not and the user was redirected
+     *  to the create page.
+     */
     public function run(): array
     {
         $gebruiker = $this->checkAuthentication();

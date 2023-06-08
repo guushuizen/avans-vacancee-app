@@ -6,22 +6,30 @@ abstract class Model
 {
 	public ?string $uuid;
 
+    /**
+     * The name for the table containing all records for this Model.
+     * @return string
+     */
 	public static abstract function tableName(): string;
 
-    /***
+    /**
+     * Seeks a model/models with the given filters.
+     *
      * @param array $filters
      *  A key-value pair of columns and the desired value. Can be specified as ['column' => 'value', 'column2' => 'value2']
      *  To specify a comparison operator, specify an array as the value, using the `value` and `operator` keys:
      *      ['column' => ['value' => 'value', 'operator' => 'LIKE']]
      * @param int|null $limit
      *  The amount of results desired, defaults to 1, set to NULL for all results.
-     * @return Model|array|null
+     * @return static|array|null
      *  Returns:
      *   - one Model object if $limit = 1,
      *   - an array if $limit == null || $limit > 1,
      *   - null if $limit = 1 and no results were found.
+     * @throws Exception
+     *   Any `Exception` PDO might throw when executing the query.
      */
-	public static function where(array $filters, ?int $limit = 1): Model|array|null {
+	public static function where(array $filters, ?int $limit = 1): static|array|null {
 		$table = static::tableName();
 
         $query = "SELECT * FROM $table";
@@ -76,7 +84,17 @@ abstract class Model
         return $limit === 1 ? $result[0] : $result;
 	}
 
-	public static function find(string $uuid): Model {
+    /**
+     * Attempts to find the Model by the primary key `uuid`.
+     *
+     * @param string $uuid
+     *  The primary key of the Model.
+     * @return static|null
+     *  The constructed model with all parameters or `null` if the Model couldn't be found.
+     * @throws Exception
+     *  Any `Exception` PDO might throw when executing the query.
+     */
+	public static function find(string $uuid): ?static {
 		$table = static::tableName();
 
 		$statement = database()->prepare("SELECT * FROM $table WHERE `uuid` = ?;");
@@ -85,14 +103,27 @@ abstract class Model
 
 		$result = $statement->fetch();
 
-		return new static(...$result);
+		return is_null($result) ? null : new static(...$result);
 	}
 
 	/**
+     * Creates a new record with all data contained in the current Model.
+     * Optionally generates an `uuid` if it was not set already.
+     *
+     * @return static
+     *  The created Model, optionally with the newly generated primary key.
 	 * @throws Exception
+     *  Any `Exception` PDO can throw when executing a query.
 	 */
-	public abstract function create(): Model;
+	public abstract function create(): static;
 
+    /**
+     * Updates all fields for this model in the database.
+     *
+     * @return void
+     * @throws Exception
+     *  Any `Exception` PDO can throw when executing a query.
+     */
 	public abstract function update(): void;
 
 	public static function generateUuid(): string

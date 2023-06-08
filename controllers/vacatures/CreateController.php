@@ -6,6 +6,16 @@ require_once "{$_SERVER["ROOT_PATH"]}/models/Vacature.php";
 class CreateController extends BaseController
 {
 
+    /**
+     * Saves the new Vacature to the database with all the details from the request
+     * and redirects to the detail page, or returns a string containing an error message.
+     *
+     * @return mixed
+     *  A `string` containing an error message if an error occurred,
+     *  `null` if the controller shouldn't be run for the current request,
+     *  or `void` if the Vacature was created and the user was redirected to the
+     *  detail page.
+     */
     public function run(): ?string
     {
         if (!$this->shouldRun())

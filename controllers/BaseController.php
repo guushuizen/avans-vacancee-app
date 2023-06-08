@@ -48,12 +48,19 @@ abstract class BaseController {
         exit();
     }
 
-    protected function saveFile(string $name, string $storage_path): string
+    /**
+     * @param array $uploaded_file_array
+     *  The associative array as provided by the $_FILES global variable.
+     * @param string $storage_path
+     *  The desired path to store the uploaded file inside the `storage` folder on disk.
+     * @return string|bool
+     *  The full and permanent path to the file on disk or `false` if something went wrong.
+     */
+    public function saveFile(array $uploaded_file_array, string $storage_path): string|bool
     {
-        $uploaded_file_array = $_FILES[$name];
         $extension = pathinfo($uploaded_file_array["full_path"], PATHINFO_EXTENSION);
 
-        $absolute_path = $_SERVER["ROOT_PATH"] . "/storage/$storage_path/$name.$extension";
+        $absolute_path = $_SERVER["ROOT_PATH"] . "/storage/$storage_path/{$uploaded_file_array["name"]}.$extension";
         if (!file_exists(dirname($absolute_path)))
             mkdir(dirname($absolute_path), recursive: true);
 

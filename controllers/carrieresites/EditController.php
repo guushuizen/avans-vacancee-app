@@ -6,7 +6,16 @@ require_once "{$_SERVER["ROOT_PATH"]}/models/Carrieresite.php";
 class EditController extends BaseController
 {
 
-    public function run(): ?string
+    /**
+     * Updates the `Carrieresite` model for the authenticated `Gebruiker` with
+     * all the data inside the Request.
+     *
+     * @return string|null|void
+     *  A `string` if an error occurred, `null` if the controller should not be run for the current
+     *  request and `void` if the Carrieresite was successfully updated and the user was redirected to
+     *  the detail page.
+     */
+    public function run(): mixed
     {
         if (!$this->shouldRun())
             return null;
@@ -21,7 +30,7 @@ class EditController extends BaseController
             $carrieresite->domeinnaam = $_POST['domeinnaam'];
             $carrieresite->primaire_kleur = $_POST['primaire_kleur'];
             $carrieresite->logo = array_key_exists("logo", $_FILES) && $_FILES["logo"]['error'] == UPLOAD_ERR_OK
-                    ? $this->saveFile("logo", $carrieresite->uuid)
+                    ? $this->saveFile($_FILES["logo"], $carrieresite->uuid)
                     : $carrieresite->logo;
 
             $carrieresite->update();

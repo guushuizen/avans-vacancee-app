@@ -6,7 +6,17 @@ require_once "{$_SERVER["ROOT_PATH"]}/models/Carrieresite.php";
 class CreateController extends BaseController
 {
 
-    public function run(): ?string
+    /**
+     * Saves the new Carrieresite to the database with all the details from the request
+     * and redirects to the detail page, or returns a string containing an error message.
+     *
+     * @return mixed
+     *  A `string` containing an error message if an error occurred,
+     *  `null` if the controller shouldn't be run for the current request,
+     *  or `void` if the Carrieresite was created and the user was redirected to the
+     *  detail page.
+     */
+    public function run(): mixed
     {
         if (!$this->shouldRun())
             return null;
@@ -22,7 +32,7 @@ class CreateController extends BaseController
                 primaire_kleur: $_POST["primaire_kleur"],
                 domeinnaam: $_POST["domeinnaam"],
                 logo: array_key_exists("logo", $_FILES) && $_FILES["logo"]["error"] == UPLOAD_ERR_OK
-                    ? $this->saveFile("logo", $carrieresite_uuid)
+                    ? $this->saveFile($_FILES["logo"], $carrieresite_uuid)
                     : null,
                 uuid: $carrieresite_uuid
             ))->create();

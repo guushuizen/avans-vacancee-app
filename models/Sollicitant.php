@@ -36,7 +36,7 @@ class Sollicitant extends Model
         return "data:application/pdf;base64," . base64_encode(file_get_contents($this->motivatiebrief_bestand));
     }
 
-    public function create(): self
+    public function create(): static
     {
         $this->uuid = $this->uuid ?? $this->generateUuid();
 

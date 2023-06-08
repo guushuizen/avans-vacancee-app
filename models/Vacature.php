@@ -24,7 +24,7 @@ class Vacature extends Model
             : $this->beschrijving;
     }
 
-    public function create(): self
+    public function create(): static
     {
         $this->uuid = $this->uuid ?? $this->generateUuid();
 

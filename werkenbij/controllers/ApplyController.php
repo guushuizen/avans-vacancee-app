@@ -14,7 +14,11 @@ class ApplyController extends WerkenbijBaseController {
 
     /**
      * @param Vacature $vacature
+     *  The vacancy to which was applied
      * @param Carrieresite $carrieresite
+     *  The careersite on which was applied.
+     *  Resupplied here from the `/werkenbij/vacature.php` view to prevent duplicate queries.
+     * @return void
      */
     public function __construct(Vacature $vacature, Carrieresite $carrieresite)
     {
@@ -22,7 +26,17 @@ class ApplyController extends WerkenbijBaseController {
         $this->carrieresite = $carrieresite;
     }
 
-    public function run(): mixed
+    /**
+     * Saves the Sollicitatie to the database, writes the files to disk
+     * and sends two emails to both the Gebruiker and the Sollicitant
+     * stating the success of the application to the vacancy.
+     *
+     * @return bool|null
+     *  Returns `true` or `false` indicating success of the application, or
+     * `null` if no attempt at applying was made at all, because the controller
+     *  should not be run.
+     */
+    public function run(): ?bool
     {
         if (!$this->shouldRun())
             return null;
@@ -35,8 +49,8 @@ class ApplyController extends WerkenbijBaseController {
             $_POST["achternaam"],
             $_POST["email"],
             $_POST["telefoonnummer"],
-            $this->saveFile("cv_bestand", "{$this->vacature->uuid}/$sollicitant_uuid"),
-            $this->saveFile("motivatiebrief_bestand", "{$this->vacature->uuid}/$sollicitant_uuid")
+            $this->saveFile($_FILES["cv_bestand"], "{$this->vacature->uuid}/$sollicitant_uuid"),
+            $this->saveFile($_FILES["motivatiebrief_bestand"], "{$this->vacature->uuid}/$sollicitant_uuid")
         );
 
         try {

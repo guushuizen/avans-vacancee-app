@@ -6,6 +6,15 @@ require_once "{$_SERVER["ROOT_PATH"]}/models/Vacature.php";
 class EditController extends BaseController
 {
 
+    /**
+     * Updates the `Vacature` model for the authenticated `Gebruiker` with
+     * all the data inside the Request.
+     *
+     * @return string|null|void
+     *  A `string` if an error occurred, `null` if the controller should not be run for the current
+     *  request and `void` if the Vacature was successfully updated and the user was redirected to
+     *  the detail page.
+     */
     public function run(): ?string
     {
         if (!$this->shouldRun())

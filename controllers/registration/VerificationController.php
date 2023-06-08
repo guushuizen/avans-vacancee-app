@@ -18,6 +18,9 @@ class VerificationController extends BaseController
      * If invalid, returns an error message.
      *
      * @return mixed
+     *  A `string` if an error occurred, `null` if the controller should not be run for the current
+     *  request and `void` if the Gebruiker was successfully verified and the user was redirected to
+     *  the dashboard page.
      */
     public function run(): mixed
     {

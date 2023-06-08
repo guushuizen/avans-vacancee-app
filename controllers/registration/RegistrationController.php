@@ -9,9 +9,10 @@ class RegistrationController extends BaseController
      * Attempts to create a new Gebruiker based on the POST request body
      * and redirects the user to the verification page on success.
      *
-     * If an error occurs, a proper error message will be returned.
-     *
      * @return mixed
+     *  A `string` if an error occurred, `null` if the controller should not be run for the current
+     *  request and `void` if the Gebruiker was successfully created and the user was redirected to
+     *  the verification page.
      */
     public function run(): mixed
     {

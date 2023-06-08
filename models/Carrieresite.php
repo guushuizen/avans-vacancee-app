@@ -16,7 +16,7 @@ class Carrieresite extends Model
     ) { }
 
     public function publicUrl(): string {
-        $careersite_domain = get_env_or_die("CAREERSITE_DOMAIN");
+        $careersite_domain = getenv("CAREERSITE_DOMAIN") ?? "vacancee.nl";
 
         return "{$this->domeinnaam}.$careersite_domain/";
     }
@@ -26,11 +26,18 @@ class Carrieresite extends Model
         return "carrieresites";
     }
 
+
     public function gebruiker(): Gebruiker
     {
         return Gebruiker::find($this->gebruiker_uuid);
     }
 
+    /**
+     * @return string|null
+     *  `null` if no logo was previously uploaded, or the logo uploaded encoded as a
+     *  base64 data-URI, ready for presenting inside an `<img />` HTML tag.
+     *
+     */
     public function getLogoAsBase64()
     {
         if (is_null($this->logo)) return null;
@@ -40,7 +47,7 @@ class Carrieresite extends Model
         return "data:$content_type;base64," . base64_encode(file_get_contents($this->logo));
     }
 
-    public function create(): self
+    public function create(): static
     {
         $this->uuid = $this->uuid ?? $this->generateUuid();
 

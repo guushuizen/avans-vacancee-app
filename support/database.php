@@ -3,6 +3,13 @@
 
 $DATABASE = null;
 
+/**
+ * Reads the .env file in the root of the repository and sets
+ * them as environment variables. Useful for local development, or if
+ * one is (too) lazy to set them themselves.
+ *
+ * @return void
+ */
 function read_env_file() {
     $file_path = __DIR__ . "/../.env";
 	if (!file_exists($file_path)) {
@@ -18,6 +25,13 @@ function read_env_file() {
 	}
 }
 
+/**
+ * Reads, returns and validates the existence of an environment variable.
+ *
+ * @param string $key
+ * @return string
+ * @throws Exception
+ */
 function get_env_or_die(string $key) {
 	$value = getenv($key);
 
@@ -28,6 +42,12 @@ function get_env_or_die(string $key) {
 	return $value;
 }
 
+/**
+ * Utility function for establishing a PDO connection to the database.
+ *
+ * @return PDO
+ * @throws Exception
+ */
 function database(): PDO {
 	global $DATABASE;
 

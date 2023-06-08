@@ -9,9 +9,12 @@ class LoginController extends BaseController
     /**
      * Attempts to authenticate the user.
      *
-     * @return mixed
+     * If authentication succeeded, it also starts the session and sets the `user_id` on there.
+     *
+     * @return string|void|null
      *   If succeeded, redirects the user to the dashboard.
-     *   Else, fails and returns an error message to render to the user.
+     *   If unsuccessful, fails and returns an error message as a `string` to render to the user.
+     *   If this controller shouldn't be run for the current request, this returns `null`.
      */
     public function run(): mixed
     {

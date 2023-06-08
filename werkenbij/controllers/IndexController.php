@@ -5,13 +5,17 @@ require_once $_SERVER["ROOT_PATH"] . "/models/Vacature.php";
 
 class IndexController extends WerkenbijBaseController {
 
-    public function run(): mixed
+
+    /**
+     * Finds the current Carrieresite and the corresponding Vacatures
+     *
+     * @return array
+     *  An array of 0) the Carrieresite and
+     *  1) a list of all Vacatures of the corresponding Carrieresite
+     */
+    public function run(): array
     {
         $carrieresite = $this->determineCarrieresite();
-
-        if (!$carrieresite) {
-            return null;
-        }
 
         $search_value = array_key_exists("search", $_GET) && $_GET["search"];
 

@@ -25,10 +25,21 @@ class Gebruiker extends Model
 		return "gebruikers";
 	}
 
+    /**
+     * The combination of the `voornaam` and `achternaam` field, used
+     * for display purposes.
+     *
+     * @return string
+     */
 	public function volleNaam(): string {
 		return "$this->voornaam $this->achternaam";
 	}
 
+    /**
+     * Generates a random six-digit code, used for generating e-mail codes.
+     *
+     * @return string
+     */
 	public function genereerCode(): string {
 		$characters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 		$code = "";
@@ -57,7 +68,7 @@ EOT
 		);
 	}
 
-	public function create(): self
+	public function create(): static
 	{
         $this->uuid = $this->uuid ?? $this->generateUuid();
 		$this->emailCode = $this->genereerCode();
